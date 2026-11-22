@@ -6,118 +6,280 @@
 <title>Ma liste de Noël 🎄</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>">
 <style>
+  * { box-sizing: border-box; }
   body {
     font-family: Georgia, serif;
-    background: #f6efe3;
     color: #2a2320;
+    margin: 0;
+    min-height: 100vh;
+    line-height: 1.5;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(255,255,255,.08) 0 2px, transparent 3px),
+      radial-gradient(circle at 70% 30%, rgba(255,255,255,.06) 0 2px, transparent 3px),
+      linear-gradient(180deg, #0f2a20 0%, #1f4d3a 60%, #2b5e47 100%);
+    background-size: 120px 120px, 170px 170px, 100% 100%;
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  /* ---------- Guirlande lumineuse ---------- */
+  .guirlande {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10px;
+    height: 46px;
+    overflow: hidden;
+  }
+  .guirlande::before { /* le fil */
+    content: "";
+    position: absolute;
+    left: -5%; right: -5%; top: -22px;
+    height: 44px;
+    border-bottom: 2px solid #0a1a13;
+    border-radius: 50%;
+  }
+  .ampoule {
+    position: relative;
+    top: 16px;
+    width: 12px; height: 20px;
+    border-radius: 50%;
+    animation: briller 1.6s infinite alternate;
+  }
+  .ampoule::before { /* culot */
+    content: "";
+    position: absolute; top: -5px; left: 3px;
+    width: 6px; height: 6px;
+    background: #444; border-radius: 2px;
+  }
+  .ampoule:nth-child(4n+1) { background: #ff4b3e; color: #ff4b3e; }
+  .ampoule:nth-child(4n+2) { background: #ffd34e; color: #ffd34e; animation-delay: .4s; }
+  .ampoule:nth-child(4n+3) { background: #4fd18b; color: #4fd18b; animation-delay: .8s; }
+  .ampoule:nth-child(4n+4) { background: #5ab8ff; color: #5ab8ff; animation-delay: 1.2s; }
+  .ampoule:nth-child(even) { top: 22px; }
+  @keyframes briller {
+    from { opacity: .45; box-shadow: none; }
+    to   { opacity: 1;   box-shadow: 0 0 12px 3px currentColor; }
+  }
+
+  /* ---------- Neige ---------- */
+  .flocon {
+    position: fixed;
+    top: -20px;
+    color: #fff;
+    pointer-events: none;
+    z-index: 0;
+    animation: tomber linear infinite;
+    opacity: .85;
+  }
+  @keyframes tomber {
+    to { transform: translate(var(--derive), 105vh) rotate(360deg); }
+  }
+
+  /* ---------- Contenu ---------- */
+  .page {
+    position: relative;
+    z-index: 1;
     max-width: 680px;
     margin: 0 auto;
-    padding: 40px 16px;
-    line-height: 1.5;
+    padding: 10px 16px 0;
   }
-  h1 { color: #b3261e; text-align: center; font-size: 2.2rem; margin-bottom: 4px; }
-  .intro { text-align: center; color: #6f655d; margin-bottom: 32px; }
-  ul { list-style: none; padding: 0; }
+  header { text-align: center; color: #fff; margin: 10px 0 30px; }
+  .houx { font-size: 2rem; letter-spacing: 6px; }
+  h1 {
+    font-size: 2.6rem;
+    margin: 6px 0 4px;
+    color: #fff;
+    text-shadow: 0 3px 0 #b3261e, 0 6px 18px rgba(0,0,0,.35);
+  }
+  .intro {
+    display: inline-block;
+    background: #b3261e;
+    color: #fff;
+    padding: 4px 18px;
+    border-radius: 999px;
+    font-style: italic;
+    box-shadow: 0 4px 10px rgba(0,0,0,.25);
+  }
+
+  ul { list-style: none; padding: 0; margin: 0; }
   li {
+    position: relative;
     display: flex;
     gap: 16px;
     align-items: center;
-    background: #fff;
-    border-left: 5px solid #1f4d3a;
-    border-radius: 8px;
-    padding: 14px;
-    margin-bottom: 14px;
+    background: #fffaf2;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    border: 2px solid #d4a24c;
+  }
+  li::after { /* petit nœud doré */
+    content: "🎀";
+    position: absolute;
+    top: -14px; right: 14px;
+    font-size: 1.5rem;
+    transform: rotate(12deg);
   }
   .photo {
+    position: relative;
     flex: 0 0 110px;
     height: 110px;
-    border-radius: 6px;
-    background: #f3f0eb;
+    border-radius: 8px;
+    background: #f3ede2;
     display: grid;
     place-items: center;
     font-size: 2.5rem;
     overflow: hidden;
-    position: relative;
   }
   .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #fff; }
-  .nom { font-size: 1.1rem; font-weight: bold; }
-  .ref { font-size: .85rem; color: #1f4d3a; margin: 2px 0 4px; }
+  .nom { font-size: 1.15rem; font-weight: bold; color: #7f1a15; }
+  .ref { font-size: .88rem; color: #1f4d3a; margin: 2px 0 4px; font-weight: bold; }
   .infos { color: #6f655d; font-size: .92rem; }
-  .prix { font-weight: bold; color: #2a2320; }
-  a { color: #b3261e; }
-  footer { text-align: center; color: #6f655d; margin-top: 40px; font-size: .9rem; }
+
+  /* ---------- Bas de page enneigé ---------- */
+  .sol {
+    position: relative;
+    z-index: 1;
+    margin-top: 40px;
+    text-align: center;
+  }
+  .sapins { font-size: 2.6rem; letter-spacing: 4px; line-height: 1; }
+  .sapins span { display: inline-block; }
+  .sapins .grand { font-size: 3.6rem; }
+  .neige-sol {
+    background: #fff;
+    border-radius: 50% 50% 0 0 / 30px 30px 0 0;
+    padding: 18px 10px 26px;
+    color: #1f4d3a;
+    font-size: 1rem;
+  }
+
   @media (max-width: 480px) {
+    h1 { font-size: 2rem; }
     .photo { flex-basis: 84px; height: 84px; }
+    .sapins { font-size: 2rem; }
+    .sapins .grand { font-size: 2.8rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flocon { display: none; }
+    .ampoule { animation: none; opacity: 1; }
   }
 </style>
 </head>
 <body>
 
-<h1>🎄 Ma liste de Noël 🎄</h1>
-<p class="intro">Thomas — Noël 2026</p>
+<div class="guirlande" id="guirlande"></div>
 
-<ul>
-  <!-- ✏️ Un cadeau = un bloc <li>. Copie-colle un bloc pour en ajouter un.
-       Si une photo ne charge pas, l'emoji s'affiche à la place. -->
+<div class="page">
+  <header>
+    <div class="houx">❄️ 🎄 ❄️</div>
+    <h1>Ma liste de Noël</h1>
+    <div class="intro">Thomas — Noël 2026</div>
+  </header>
 
-  <li>
-    <div class="photo">🖨️<img src="https://static-pepper.dealabs.com/threads/raw/Es55L/3411139_1/re/768x768/qt/60/3411139_1.jpg" alt="ASprink 2410BT" onerror="this.remove()"></div>
-    <div>
-      <div class="nom">Une imprimante thermique</div>
-      <div class="ref">ASprink 2410BT (Bluetooth, étiquettes 10 x 15 cm)</div>
-      <div class="infos">Pas besoin d'un modèle haut de gamme : juste qu'elle marche en Bluetooth avec le téléphone · <a href="https://www.amazon.fr/s?k=ASprink+2410BT" target="_blank">Voir sur Amazon</a></div>
-    </div>
-  </li>
+  <ul>
+    <!-- ✏️ Un cadeau = un bloc <li>. Copie-colle un bloc pour en ajouter un.
+         Si une photo ne charge pas, l'emoji s'affiche à la place. -->
 
-  <li>
-    <div class="photo">👟<img src="https://images-0.cdn.hhv.de/items/images/generated/1000x1000/00882/882004/1-salomon-xt-6-black-black-phantom.webp" alt="Salomon XT-6 noire" onerror="this.remove()"></div>
-    <div>
-      <div class="nom">Des chaussures Salomon noires</div>
-      <div class="ref">Salomon XT-6 — coloris Black / Black / Phantom (réf. L41086600)</div>
-      <div class="infos">Pointure : <b>43</b> · <a href="https://www.hhv.de/en/clothing/item/salomon-xt-6-black-black-phantom-882004" target="_blank">Voir l'article</a></div>
-    </div>
-  </li>
+    <li>
+      <div class="photo">🖨️<img src="https://static-pepper.dealabs.com/threads/raw/Es55L/3411139_1/re/768x768/qt/60/3411139_1.jpg" alt="ASprink 2410BT" onerror="this.remove()"></div>
+      <div>
+        <div class="nom">Une imprimante thermique</div>
+        <div class="ref">ASprink 2410BT (Bluetooth, étiquettes 10 x 15 cm)</div>
+        <div class="infos">Pas besoin d'un modèle haut de gamme : il faut juste qu'elle marche en Bluetooth avec le téléphone.</div>
+      </div>
+    </li>
 
-  <li>
-    <div class="photo">🎧<img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-pro-3-hero-select-202509?wid=600&hei=600&fmt=jpeg&qlt=90" alt="AirPods Pro 3" onerror="this.remove()"></div>
-    <div>
-      <div class="nom">Des AirPods</div>
-      <div class="ref">Apple AirPods Pro 3 (les intra-auriculaires avec embouts en silicone)</div>
-      <div class="infos"><a href="https://www.apple.com/fr/shop/buy-airpods/airpods-pro-3" target="_blank">Voir l'article</a></div>
-    </div>
-  </li>
+    <li>
+      <div class="photo">👟<img src="https://images-0.cdn.hhv.de/items/images/generated/1000x1000/00882/882004/1-salomon-xt-6-black-black-phantom.webp" alt="Salomon XT-6 noire" onerror="this.remove()"></div>
+      <div>
+        <div class="nom">Des chaussures Salomon noires</div>
+        <div class="ref">Salomon XT-6 — coloris Black / Black / Phantom (réf. L41086600)</div>
+        <div class="infos">Pointure : <b>43</b></div>
+      </div>
+    </li>
 
-  <li>
-    <div class="photo">📱<img src="https://media.materiel.net/r900/products/MN0006107387.jpg" alt="Samsung Galaxy Tab S9" onerror="this.remove()"></div>
-    <div>
-      <div class="nom">Une tablette Samsung Galaxy Tab S9</div>
-      <div class="ref">Galaxy Tab S9 11" Wi-Fi 128 Go — SM-X710 (Snapdragon 8 Gen 2)</div>
-      <div class="infos">Attention, <b>pas la Tab S9 FE</b>, qui a un processeur Exynos. Neuve ou reconditionnée, c'est parfait.</div>
-    </div>
-  </li>
+    <li>
+      <div class="photo">🎧<img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-pro-3-hero-select-202509?wid=600&hei=600&fmt=jpeg&qlt=90" alt="AirPods Pro 3" onerror="this.remove()"></div>
+      <div>
+        <div class="nom">Des AirPods</div>
+        <div class="ref">Apple AirPods Pro 3</div>
+        <div class="infos">Les intra-auriculaires avec embouts en silicone.</div>
+      </div>
+    </li>
 
-  <li>
-    <div class="photo">🎙️<img src="https://www.powerplanetonline.com/cdnassets/Transmisor-DJI-Mic-Mini-001_l_sf.webp?w=828&q=75&format=webp" alt="DJI Mic Mini émetteur" onerror="this.remove()"></div>
-    <div>
-      <div class="nom">Un micro sans fil pour ma caméra DJI</div>
-      <div class="ref">DJI Mic Mini — émetteur seul (Infinity Black)</div>
-      <div class="infos">Se connecte directement à mon Osmo Pocket 3, pas besoin de récepteur · <a href="https://www.powerplanetonline.com/fr/emetteur-dji-mic-mini" target="_blank">Voir l'article</a></div>
-    </div>
-  </li>
+    <li>
+      <div class="photo">📱<img src="https://media.materiel.net/r900/products/MN0006107387.jpg" alt="Samsung Galaxy Tab S9" onerror="this.remove()"></div>
+      <div>
+        <div class="nom">Une tablette Samsung Galaxy Tab S9</div>
+        <div class="ref">Galaxy Tab S9 11" Wi-Fi 128 Go — SM-X710 (Snapdragon 8 Gen 2)</div>
+        <div class="infos">Attention, <b>pas la Tab S9 FE</b>, qui a un processeur Exynos. Neuve ou reconditionnée, c'est parfait.</div>
+      </div>
+    </li>
 
-  <li>
-    <div class="photo">🎒<img src="https://static.sscontent.com/thumb/500/500/products/124/v1499998_prozis_core-workout-duffle-backpack-35l-black_single-size_black_newin.jpg" alt="Sac Prozis Core Workout 35L" onerror="this.remove()"></div>
-    <div>
-      <div class="nom">Un sac pour le sport et le quotidien</div>
-      <div class="ref">Prozis Core Workout 35L — noir</div>
-      <div class="infos">Sac 2-en-1 : se porte à la main ou sur le dos · <a href="https://www.prozis.com/be/fr/prozis/sac-a-dos-de-sport-core-workout-35l-noir" target="_blank">Voir l'article</a></div>
-    </div>
-  </li>
+    <li>
+      <div class="photo">🎙️<img src="https://www.powerplanetonline.com/cdnassets/Transmisor-DJI-Mic-Mini-001_l_sf.webp?w=828&q=75&format=webp" alt="DJI Mic Mini émetteur" onerror="this.remove()"></div>
+      <div>
+        <div class="nom">Un micro sans fil pour ma caméra DJI</div>
+        <div class="ref">DJI Mic Mini — émetteur seul (Infinity Black)</div>
+        <div class="infos">Se connecte directement à mon Osmo Pocket 3, pas besoin de récepteur.</div>
+      </div>
+    </li>
 
+    <li>
+      <div class="photo">🎒<img src="https://static.sscontent.com/thumb/500/500/products/124/v1499998_prozis_core-workout-duffle-backpack-35l-black_single-size_black_newin.jpg" alt="Sac Prozis Core Workout 35L" onerror="this.remove()"></div>
+      <div>
+        <div class="nom">Un sac pour le sport et le quotidien</div>
+        <div class="ref">Prozis Core Workout 35L — noir</div>
+        <div class="infos">Sac 2-en-1 : se porte à la main ou sur le dos.</div>
+      </div>
+    </li>
 
-</ul>
+    <li>
+      <div class="photo">🧥<img src="https://www.charlestyrwhitt.com/on/demandware.static/-/Sites-ctshirts-master/default/dw13db4463/hi-res/KNM0009OLV_MODEL_FRONT.jpg" alt="Pull mérinos vert olive" onerror="this.remove()"></div>
+      <div>
+        <div class="nom">Des vêtements d'hiver</div>
+        <div class="ref">Exemple : pull col rond en pur mérinos vert olive, Charles Tyrwhitt (réf. KNM0009OLV)</div>
+        <div class="infos">Taille : <b>M</b>. Sinon, pulls, sweats ou manteau dans ces couleurs : bordeaux, vert forêt, vert olive, bleu pétrole, camel, chocolat, rouille. Plutôt crème que blanc, et pas de couleurs pastel.</div>
+      </div>
+    </li>
 
-<footer>Merci Père Noël 🎅</footer>
+  </ul>
+</div>
+
+<div class="sol">
+  <div class="sapins">
+    <span>🌲</span><span>🎁</span><span class="grand">🎄</span><span>⛄</span><span>🌲</span>
+  </div>
+  <div class="neige-sol">Merci Père Noël 🎅</div>
+</div>
+
+<script>
+  // Ampoules de la guirlande (autant que la largeur de l'écran le permet)
+  const g = document.getElementById("guirlande");
+  const nb = Math.max(10, Math.floor(innerWidth / 45));
+  for (let i = 0; i < nb; i++) {
+    const a = document.createElement("span");
+    a.className = "ampoule";
+    g.appendChild(a);
+  }
+
+  // Flocons de neige
+  const formes = ["❄", "❅", "❆", "•"];
+  for (let i = 0; i < 35; i++) {
+    const f = document.createElement("span");
+    f.className = "flocon";
+    f.textContent = formes[i % formes.length];
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.fontSize = (8 + Math.random() * 14) + "px";
+    f.style.animationDuration = (8 + Math.random() * 10) + "s";
+    f.style.animationDelay = (-Math.random() * 18) + "s";
+    f.style.setProperty("--derive", (Math.random() * 80 - 40) + "px");
+    document.body.appendChild(f);
+  }
+</script>
 
 </body>
 </html>
