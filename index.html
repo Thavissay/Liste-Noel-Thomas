@@ -10,25 +10,44 @@
     font-family: Georgia, serif;
     background: #f6efe3;
     color: #2a2320;
-    max-width: 640px;
+    max-width: 680px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 40px 16px;
     line-height: 1.5;
   }
   h1 { color: #b3261e; text-align: center; font-size: 2.2rem; margin-bottom: 4px; }
   .intro { text-align: center; color: #6f655d; margin-bottom: 32px; }
   ul { list-style: none; padding: 0; }
   li {
+    display: flex;
+    gap: 16px;
+    align-items: center;
     background: #fff;
     border-left: 5px solid #1f4d3a;
     border-radius: 8px;
-    padding: 14px 18px;
-    margin-bottom: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
   }
-  .nom { font-size: 1.15rem; font-weight: bold; }
-  .infos { color: #6f655d; font-size: .95rem; }
+  .photo {
+    flex: 0 0 110px;
+    height: 110px;
+    border-radius: 6px;
+    background: #f3f0eb;
+    display: grid;
+    place-items: center;
+    font-size: 2.5rem;
+    overflow: hidden;
+  }
+  .photo img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .nom { font-size: 1.1rem; font-weight: bold; }
+  .ref { font-size: .85rem; color: #1f4d3a; margin: 2px 0 4px; }
+  .infos { color: #6f655d; font-size: .92rem; }
+  .prix { font-weight: bold; color: #2a2320; }
   a { color: #b3261e; }
   footer { text-align: center; color: #6f655d; margin-top: 40px; font-size: .9rem; }
+  @media (max-width: 480px) {
+    .photo { flex-basis: 84px; height: 84px; }
+  }
 </style>
 </head>
 <body>
@@ -37,38 +56,71 @@
 <p class="intro">Thomas — Noël 2026</p>
 
 <ul>
-  <!-- ✏️ Un cadeau = un bloc <li>. Copie-colle un bloc pour en ajouter un. -->
+  <!-- ✏️ Un cadeau = un bloc <li>. Copie-colle un bloc pour en ajouter un.
+       Si une photo ne charge pas, l'emoji s'affiche à la place. -->
 
   <li>
-    <div class="nom">🖨️ Une petite imprimante thermique</div>
+    <div class="photo">🖨️<img src="https://static01.galaxus.com/productimages/5/4/1/5/2/7/4/3/2/3/4/3/3/9/6/9/7/0/277c0aef-7785-4e6b-bd49-10d0e98f51c8.jpg_sea.jpeg" alt="Phomemo M02 Pro" onerror="this.remove()"></div>
+    <div>
+      <div class="nom">Une petite imprimante thermique</div>
+      <div class="ref">Phomemo M02 Pro</div>
+      <div class="infos">Mini imprimante Bluetooth sans encre, 300 dpi · <a href="https://phomemo.com/fr/products/m02-pro-portable-printer" target="_blank">Voir l'article</a></div>
+    </div>
   </li>
 
   <li>
-    <div class="nom">👟 Des chaussures Salomon noires</div>
+    <div class="photo">👟<img src="https://images-0.cdn.hhv.de/items/images/generated/1000x1000/00882/882004/1-salomon-xt-6-black-black-phantom.webp" alt="Salomon XT-6 noire" onerror="this.remove()"></div>
+    <div>
+      <div class="nom">Des chaussures Salomon noires</div>
+      <div class="ref">Salomon XT-6 — coloris Black / Black / Phantom (réf. L41086600)</div>
+      <div class="infos"><span class="prix">≈ 180 €</span> · Pointure : à me demander · <a href="https://www.hhv.de/en/clothing/item/salomon-xt-6-black-black-phantom-882004" target="_blank">Voir l'article</a></div>
+    </div>
   </li>
 
   <li>
-    <div class="nom">🎧 Des AirPods</div>
+    <div class="photo">🎧<img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-pro-3-hero-select-202509?wid=600&hei=600&fmt=jpeg&qlt=90" alt="AirPods Pro 3" onerror="this.remove()"></div>
+    <div>
+      <div class="nom">Des AirPods</div>
+      <div class="ref">Apple AirPods Pro 3</div>
+      <div class="infos"><span class="prix">249 €</span> chez Apple (souvent moins cher en promo) · <a href="https://www.apple.com/fr/shop/buy-airpods/airpods-pro-3" target="_blank">Voir l'article</a></div>
+    </div>
   </li>
 
   <li>
-    <div class="nom">📱 Une tablette Samsung Galaxy Tab S9</div>
-    <div class="infos">Le modèle avec le processeur Snapdragon 8 Gen 2 (Tab S9, S9+ ou S9 Ultra). Attention, <b>pas la Tab S9 FE</b>, qui a un processeur Exynos.</div>
+    <div class="photo">📱<img src="https://media.materiel.net/r900/products/MN0006107387.jpg" alt="Samsung Galaxy Tab S9" onerror="this.remove()"></div>
+    <div>
+      <div class="nom">Une tablette Samsung Galaxy Tab S9</div>
+      <div class="ref">Galaxy Tab S9 11" Wi-Fi 128 Go — SM-X710 (Snapdragon 8 Gen 2)</div>
+      <div class="infos">Attention, <b>pas la Tab S9 FE</b>, qui a un processeur Exynos. Neuve ou reconditionnée, c'est parfait.</div>
+    </div>
   </li>
 
   <li>
-    <div class="nom">🎙️ Un micro sans fil pour ma caméra DJI</div>
-    <div class="infos">Compatible avec la DJI Osmo Pocket 3 (type DJI Mic)</div>
+    <div class="photo">🎙️<img src="https://www.powerplanetonline.com/cdnassets/Transmisor-DJI-Mic-Mini-001_l_sf.webp?w=828&q=75&format=webp" alt="DJI Mic Mini émetteur" onerror="this.remove()"></div>
+    <div>
+      <div class="nom">Un micro sans fil pour ma caméra DJI</div>
+      <div class="ref">DJI Mic Mini — émetteur seul (Infinity Black)</div>
+      <div class="infos"><span class="prix">≈ 35-40 €</span> · Se connecte directement à mon Osmo Pocket 3, pas besoin de récepteur · <a href="https://www.powerplanetonline.com/fr/emetteur-dji-mic-mini" target="_blank">Voir l'article</a></div>
+    </div>
   </li>
 
   <li>
-    <div class="nom">🎒 Un sac pour le sport et le quotidien</div>
-    <div class="infos">Assez grand pour mes affaires de sport et mes affaires perso, mais pas immense. Il doit pouvoir se porter à la main et sur le dos (sac 2-en-1, sac à dos et sac de sport).</div>
+    <div class="photo">🎒<img src="https://static.sscontent.com/thumb/500/500/products/124/v1499998_prozis_core-workout-duffle-backpack-35l-black_single-size_black_newin.jpg" alt="Sac Prozis Core Workout 35L" onerror="this.remove()"></div>
+    <div>
+      <div class="nom">Un sac pour le sport et le quotidien</div>
+      <div class="ref">Prozis Core Workout 35L — noir</div>
+      <div class="infos"><span class="prix">≈ 50 €</span> · Sac 2-en-1 : se porte à la main ou sur le dos · <a href="https://www.prozis.com/be/fr/prozis/sac-a-dos-de-sport-core-workout-35l-noir" target="_blank">Voir l'article</a></div>
+    </div>
   </li>
 
   <li>
-    <div class="nom">🧥 Des vêtements d'hiver</div>
-    <div class="infos">Pulls, sweats, manteau… dans ces couleurs : bordeaux, vert forêt, vert olive, bleu pétrole, camel, chocolat, rouille. Plutôt crème que blanc, et pas de couleurs pastel.</div>
+    <div class="photo">🧥<img src="https://www.charlestyrwhitt.com/on/demandware.static/-/Sites-ctshirts-master/default/dw13db4463/hi-res/KNM0009OLV_MODEL_FRONT.jpg" alt="Pull mérinos vert olive" onerror="this.remove()"></div>
+    <div>
+      <div class="nom">Des vêtements d'hiver</div>
+      <div class="ref">Exemple : pull col rond en pur mérinos vert olive, Charles Tyrwhitt (réf. KNM0009OLV)</div>
+      <div class="infos"><span class="prix">≈ 100 €</span> · Taille : à me demander · <a href="https://www.charlestyrwhitt.com/fr/pull-en-pur-m%C3%A9rinos-%C3%A0-col-rond---vert-olive/KNM0009OLV.html" target="_blank">Voir l'article</a><br>
+      Sinon, pulls, sweats ou manteau dans ces couleurs : bordeaux, vert forêt, vert olive, bleu pétrole, camel, chocolat, rouille. Plutôt crème que blanc, et pas de couleurs pastel.</div>
+    </div>
   </li>
 
 </ul>
